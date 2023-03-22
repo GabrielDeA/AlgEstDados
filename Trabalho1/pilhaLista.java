@@ -1,4 +1,4 @@
-public class pilhaLista<T> implements Pilha<T>{
+public class PilhaLista<T> implements Pilha<T>{
 
     private ListaEncadeada<T> lista;
 
@@ -6,7 +6,7 @@ public class pilhaLista<T> implements Pilha<T>{
         return lista.exibir();
     }
 
-    public pilhaLista() {
+    public PilhaLista() {
         lista = new ListaEncadeada<>();
     }
 
