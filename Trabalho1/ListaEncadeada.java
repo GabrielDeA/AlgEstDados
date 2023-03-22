@@ -1,7 +1,7 @@
 public class ListaEncadeada<T> implements Lista<T> {
 
     private NoLista<T> primeiro;
-    private NoLista<T> ultimo;
+    public NoLista<T> ultimo;
     private int qtdeElementos;
 
     @Override
