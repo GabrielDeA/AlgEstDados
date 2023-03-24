@@ -15,64 +15,67 @@ public class Calculadora {
             if (tipo != 'e' && tipo != 'E' && tipo != 'd' && tipo != 'D') {
                 System.out.println("Deve ser digitado 'E' ou 'D', tente novamente");
             }
-            }
+        }
 
-            // precisei deixar uma declaração de pilha fora dos Ifs, senão o autopreencher não reconhecia quando eu digito pilha
-             Pilha<Double> pilha = new PilhaVetor<>();
-          //  if (tipo == 'e' || tipo == 'E') {
-            //             
-           // } else {
-               // if (tipo == 'd' || tipo == 'D') {
-                //  Pilha<Double> pilha = new PilhaLista<>();    
-              //  }
-          //  }
-                int i = 0;
-                String str = "";
-                Double primeiroNum = 0.0;
-                Double segundoNum = 0.0;
-                while(i < expressao.length()) {
-                    if(expressao.charAt(i) == ' ') {
+        Pilha<Double> pilha;
+        switch(tipo) {
+            case 'e':
+             pilha = new PilhaVetor<>();
+            break;
+            case 'E':
+             pilha = new PilhaVetor<>();
+            break;
+            case 'd':
+             pilha = new PilhaLista<>();
+            break;
+            case 'D':
+            pilha = new PilhaLista<>();
+            break;
+            default:
+             pilha = new PilhaLista<>();
+        }
 
-                    } else{
-                    if( Character.isDigit(expressao.charAt(i))) {
-                        str = String.valueOf(expressao.charAt(i));
-                      pilha.push(Double.valueOf(str));
-                    } else {
-                        if(expressao.charAt(i) == '/') {
+        int i = 0;
+        Double primeiroNum = 0.0;
+        Double segundoNum = 0.0;
+
+        String[] elementos = expressao.split(" ");
+
+
+        while (i < elementos.length) {
+                if (!elementos[i].equals("-") && !elementos[i].equals("+") && !elementos[i].equals("*") &&  !elementos[i].equals("/")) {
+                    pilha.push(Double.valueOf(elementos[i]));
+                } else {
+                    if (elementos[i].equals("/")) {
                         segundoNum = pilha.pop();
                         primeiroNum = pilha.pop();
                         pilha.push(primeiroNum / segundoNum);
+                    } else {
+                        if (elementos[i].equals("+")) {
+                            segundoNum = pilha.pop();
+                            primeiroNum = pilha.pop();
+                            pilha.push(primeiroNum + segundoNum);
                         } else {
-                            if(expressao.charAt(i) == '+') {
+                            if (elementos[i].equals("-")) {
                                 segundoNum = pilha.pop();
-                                primeiroNum = pilha.pop();  
-                                pilha.push(primeiroNum + segundoNum);
+                                primeiroNum = pilha.pop();
+                                pilha.push(primeiroNum - segundoNum);
                             } else {
-                                if(expressao.charAt(i) == '-') {
+                                if (elementos[i].equals("*")) {
                                     segundoNum = pilha.pop();
-                                    primeiroNum = pilha.pop();  
-                                    pilha.push(primeiroNum - segundoNum);
-                                } else {
-                                    if(expressao.charAt(i) == '*') {
-                                        segundoNum = pilha.pop();
-                                        primeiroNum = pilha.pop();  
-                                        pilha.push(primeiroNum * segundoNum);
-                                    }
+                                    primeiroNum = pilha.pop();
+                                    pilha.push(primeiroNum * segundoNum);
                                 }
                             }
                         }
-     
-                        
                     }
                 }
-                     
-                    
-                    i++;
-                }
-
-            System.out.println("Resultado: " + pilha.peek());
-            teclado.close();
+            
+            i++;
         }
 
-
+        System.out.println("Resultado: " + pilha.peek());
+        teclado.close();
     }
+
+}
