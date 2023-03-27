@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Calculadora {
@@ -16,66 +15,93 @@ public class Calculadora {
                 System.out.println("Deve ser digitado 'E' ou 'D', tente novamente");
             }
         }
+        teclado.close();
 
         Pilha<Double> pilha;
-        switch(tipo) {
+        switch (tipo) {
             case 'e':
-             pilha = new PilhaVetor<>();
-            break;
+                pilha = new PilhaVetor<>();
+                break;
             case 'E':
-             pilha = new PilhaVetor<>();
-            break;
+                pilha = new PilhaVetor<>();
+                break;
             case 'd':
-             pilha = new PilhaLista<>();
-            break;
+                pilha = new PilhaLista<>();
+                break;
             case 'D':
-            pilha = new PilhaLista<>();
-            break;
+                pilha = new PilhaLista<>();
+                break;
             default:
-             pilha = new PilhaLista<>();
+                pilha = new PilhaLista<>();
         }
+
+        String[] elementos = expressao.split(" ");
+        int j = 0;
+        int qtdeOperadores = 0;
+        int qtdeNumeros = 0;
+        while (j < elementos.length) {
+            if (!elementos[j].equals("-") && !elementos[j].equals("+") && !elementos[j].equals("*")
+                    && !elementos[j].equals("/")) {
+                qtdeNumeros++;
+            }
+            if (elementos[j].equals("-") || elementos[j].equals("+") || elementos[j].equals("*")
+                    || elementos[j].equals("/")) {
+                qtdeOperadores++;
+            }
+            j++;
+        }
+
+       
+            if (elementos.length < 3) {
+                throw new IllegalArgumentException(
+                        "Expressao incorreta. Sao necessarios pelo menos 3 elementos para calcular.");
+            }
+            if (qtdeOperadores > qtdeNumeros - 1) {
+                throw new IllegalArgumentException("Expressao incorreta. Ha operadores em excesso.");
+            }
+            if (qtdeOperadores < qtdeNumeros - 1) {
+                throw new IllegalArgumentException("Expressao incorreta. Ha operandos em excesso.");
+            }
+
+        
 
         int i = 0;
         Double primeiroNum = 0.0;
         Double segundoNum = 0.0;
-
-        String[] elementos = expressao.split(" ");
-
-
         while (i < elementos.length) {
-                if (!elementos[i].equals("-") && !elementos[i].equals("+") && !elementos[i].equals("*") &&  !elementos[i].equals("/")) {
-                    pilha.push(Double.valueOf(elementos[i]));
+            if (!elementos[i].equals("-") && !elementos[i].equals("+") && !elementos[i].equals("*")
+                    && !elementos[i].equals("/")) {
+                pilha.push(Double.valueOf(elementos[i]));
+            } else {
+                if (elementos[i].equals("/")) {
+                    segundoNum = pilha.pop();
+                    primeiroNum = pilha.pop();
+                    pilha.push(primeiroNum / segundoNum);
                 } else {
-                    if (elementos[i].equals("/")) {
+                    if (elementos[i].equals("+")) {
                         segundoNum = pilha.pop();
                         primeiroNum = pilha.pop();
-                        pilha.push(primeiroNum / segundoNum);
+                        pilha.push(primeiroNum + segundoNum);
                     } else {
-                        if (elementos[i].equals("+")) {
+                        if (elementos[i].equals("-")) {
                             segundoNum = pilha.pop();
                             primeiroNum = pilha.pop();
-                            pilha.push(primeiroNum + segundoNum);
+                            pilha.push(primeiroNum - segundoNum);
                         } else {
-                            if (elementos[i].equals("-")) {
+                            if (elementos[i].equals("*")) {
                                 segundoNum = pilha.pop();
                                 primeiroNum = pilha.pop();
-                                pilha.push(primeiroNum - segundoNum);
-                            } else {
-                                if (elementos[i].equals("*")) {
-                                    segundoNum = pilha.pop();
-                                    primeiroNum = pilha.pop();
-                                    pilha.push(primeiroNum * segundoNum);
-                                }
+                                pilha.push(primeiroNum * segundoNum);
                             }
                         }
                     }
                 }
-            
+            }
+
             i++;
         }
 
         System.out.println("Resultado: " + pilha.peek());
-        teclado.close();
     }
 
 }
