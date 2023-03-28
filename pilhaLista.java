@@ -28,7 +28,7 @@ public class pilhaLista<T> implements Pilha<T>{
         if(EstaVazia() == true) {
             throw new RuntimeException("Pilha está vazia");
         } else {
-            return lista.primeiro.info;
+            return lista.ultimo.info;
         }
     }
 
