@@ -12,7 +12,7 @@ public class PilhaVetor<T> implements Pilha<T> {
 
     public String toString(){
         String str = "[ ";
-        for (int i = tamanho - 1; i <= 0; i--) {
+        for (int i = tamanho - 1; i >= 0; i--) {
             str += info[i] + ", ";
         }
         return str + "]";
