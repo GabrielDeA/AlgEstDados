@@ -44,5 +44,22 @@ public class NoArvoreBST<T extends Comparable> extends NoArvoreBinaria {
             return((NoArvoreBST<T>)this.getDir()).buscar(info);
         }
     }
+
+    protected NoArvoreBST<T> buscarUnicoFilho() {
+        if(this.getEsq() != null) {
+            return (NoArvoreBST<T>) this.getEsq();
+        } else {
+            return (NoArvoreBST<T>) this.getDir();
+        }
+    }
+
+    public boolean temUmFilho() {
+        // XOR - eXclusive OR (^)
+        return(this.getEsq() == null ^ this.getDir() == null);
+    }
+
+    public boolean ehFolha() {
+        return (this.getEsq() == null && this.getDir() == null);
+    }
     
 }
