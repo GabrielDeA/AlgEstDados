@@ -60,17 +60,19 @@ public class NoArvore<T> {
     }
 
     // trabalho 2
-
-    public int getAltura(NoArvore<T> no) {
-
-        int altura = 0;
-        if (no.filho == null) {
-            return 1;
-        } else {
+   public int getAltura(NoArvore<T> no) {
             int alturaMAX = 0;
+            int altura = 0;
+        if (no.filho != null) {
+            if(altura > alturaMAX) {
+                alturaMAX = altura;
+            }
+            return altura + 1 + getAltura(no.filho);
             
+        } if(no.irmao != null) {
+            return getAltura(no.irmao);
         }
 
-        return 0;
+        return alturaMAX;
     }
 }
