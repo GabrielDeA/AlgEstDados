@@ -1,5 +1,5 @@
-package arvores;
-
+//Gabriel Santos e Adriano Girardi
+package arvores;// cheque se o pacote está correto
 public class NoArvore<T> {
 
     private T info;
@@ -60,19 +60,41 @@ public class NoArvore<T> {
     }
 
     // trabalho 2
-   public int getAltura(NoArvore<T> no) {
-            int alturaMAX = 0;
-            int altura = 0;
-        if (no.filho != null) {
-            if(altura > alturaMAX) {
-                alturaMAX = altura;
-            }
-            return altura + 1 + getAltura(no.filho);
-            
-        } if(no.irmao != null) {
-            return getAltura(no.irmao);
-        }
+    public int getAltura(NoArvore<T> no) {
+        if (no == null) {
+            return 0;
+        } else {
+            int alturaFilhos = 0;
+            NoArvore<T> filho = no.filho;
 
-        return alturaMAX;
+            while (filho != null) {
+                int alturaFilho = getAltura(filho);
+                alturaFilhos = Math.max(alturaFilhos, alturaFilho);
+                filho = filho.irmao;
+            }
+            return alturaFilhos + 1;
+        }
     }
+
+    public int getNivel(T info, NoArvore<T> no, int nivelAtual) {
+        if (no == null) {
+            return -1;
+        } else {
+            if (no.info.equals(info)) {
+                return nivelAtual;
+            } else {
+                NoArvore<T> filho = no.filho;
+
+                while (filho != null) {
+                    int nivelFilho = getNivel(info, filho, nivelAtual+1);
+                    if (nivelFilho != -1) {
+                        return nivelFilho;
+                    }
+                    filho = filho.irmao;
+                }
+                return -1;
+            }
+        }
+    }
+
 }
