@@ -1,5 +1,5 @@
-package arvores;
-
+//Gabriel Santos e Adriano Girardi
+package arvores; //cheque se o pacote está correto
 public class Arvore<T> {
 
     private NoArvore<T> raiz;
@@ -38,5 +38,22 @@ public class Arvore<T> {
             return "<>";
         } 
         return this.raiz.imprimePre();
+    }
+
+    //trabalho 2
+    public int getAltura() {
+        if(this.vazia()) {
+            return -1;
+        } else {
+            return raiz.getAltura(raiz);
+        }
+    }
+
+    public int getNivel(T info) {
+        if(this.vazia()) {
+            return -1;
+        } else {
+            return raiz.getNivel(info, raiz, 1);   
+             }
     }
 }
