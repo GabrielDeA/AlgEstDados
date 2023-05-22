@@ -1,5 +1,3 @@
-
-package arvores; // cheque se o pacote está correto
 public class TesteArvoreNAria {
     public static void main(String[] args) {
         NoArvore<Integer> n9 = new NoArvore<Integer>(9);
@@ -27,8 +25,9 @@ public class TesteArvoreNAria {
 		n1.inserirFilho(n2);
 
         NoArvore<Integer> n11 = new NoArvore<Integer>(11);
-       n10.inserirFilho(n11);
-
+     //  n10.inserirFilho(n11);
+		NoArvore<Integer> n12 = new NoArvore<Integer>(12);
+		//n11.inserirFilho(n12);
     
 		Arvore<Integer> a = new Arvore<>();
 
@@ -46,5 +45,6 @@ public class TesteArvoreNAria {
         System.out.println("Nivel do 1: " + a.getNivel(1));
         System.out.println("Nivel do 11: " + a.getNivel(11));
         System.out.println("Nivel do 20 (teste de erro): " + a.getNivel(20));
+		System.out.println("Balanceada? " + a.isBalanceada());
     }
 }
