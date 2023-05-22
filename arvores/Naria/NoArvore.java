@@ -1,5 +1,5 @@
 //Gabriel Santos e Adriano Girardi
-package arvores;// cheque se o pacote está correto
+
 public class NoArvore<T> {
 
     private T info;
@@ -97,4 +97,31 @@ public class NoArvore<T> {
         }
     }
 
+    
+    public int calcularAltura(NoArvore<T> no) {
+        if (no == null) {
+            return 0;
+        }
+
+        int alturaMaxima = -1;
+        NoArvore<T> filho = no.filho;
+        while (filho != null) {
+            int alturaFilho = calcularAltura(filho);
+            if (alturaFilho == -1) {
+                return -1;
+            }
+            if (alturaMaxima == -1) {
+                alturaMaxima = alturaFilho;
+            } else if (Math.abs(alturaFilho - alturaMaxima) > 1) {
+                return -1;
+            } else {
+                alturaMaxima = Math.max(alturaMaxima, alturaFilho);
+            }
+            filho = filho.irmao;
+        }
+
+        return alturaMaxima;
+    }
+
 }
+
