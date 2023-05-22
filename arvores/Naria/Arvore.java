@@ -1,10 +1,9 @@
 //Gabriel Santos e Adriano Girardi
-package arvores; //cheque se o pacote está correto
+
 public class Arvore<T> {
 
     private NoArvore<T> raiz;
 
-    //de outras classes
     public Arvore() {
 		super();
         raiz = null;
@@ -24,7 +23,6 @@ public class Arvore<T> {
 		return false;
 	}
 
-    //autoral
 
     public NoArvore<T> pertence(T info) {
         if(this.vazia()) {
@@ -53,7 +51,12 @@ public class Arvore<T> {
         if(this.vazia()) {
             return -1;
         } else {
-            return raiz.getNivel(info, raiz, 1);   
+            return raiz.getNivel(info, raiz, 0);   
              }
+    }
+
+    public boolean isBalanceada() {
+        int alturaMaxima = raiz.calcularAltura(raiz);
+        return alturaMaxima != -1;
     }
 }
