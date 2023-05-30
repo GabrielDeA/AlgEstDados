@@ -1,8 +1,7 @@
-package Trabalho3;
-
-public class NoLista<T> {
+public class NoLista<K, T> {
     T info;
-    private NoLista<T> prox;
+    K chave;
+    private NoLista<K, T> prox;
 
     public T getInfo() {
         return info;
@@ -10,10 +9,10 @@ public class NoLista<T> {
     public void setInfo(T info) {
         this.info = info;
     }
-    public NoLista<T> getProx() {
+    public NoLista<K, T> getProx() {
         return prox;
     }
-    public void setProx(NoLista<T> prox) {
+    public void setProx(NoLista<K, T> prox) {
         this.prox = prox;
     }
 }
