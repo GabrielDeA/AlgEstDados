@@ -33,4 +33,15 @@ public class MapaDispersao<K, T> {
         return compactado;
     }
 
+    public T remover(K chave) { 
+        int indice = this.calcularHash(chave);
+        if(tabela[indice] != null) {
+            T retorno = (T) tabela[indice];
+            tabela[indice] = null;
+            return retorno;
+        } else {
+            return null;
+        }
+    }
+
 }
