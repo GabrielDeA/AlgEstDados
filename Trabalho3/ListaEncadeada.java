@@ -1,15 +1,14 @@
-package Trabalho3;
-
 public class ListaEncadeada<K, T> implements Lista<K, T> {
 
-    NoLista<T> primeiro;
-    private NoLista<T> ultimo;
+    NoLista<K, T> primeiro;
+    private NoLista<K, T> ultimo;
     int qtdeElementos;
 
     @Override
-    public void inserir(T valor) {
-        NoLista<T> novo = new NoLista<>();
+    public void inserir(T valor, K chave) {
+        NoLista<K, T> novo = new NoLista<>();
         novo.setInfo(valor);
+        novo.setChave(chave);
         if (this.EstaVazia()) {
             primeiro = novo;
         } else {
@@ -20,10 +19,10 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
     }
 
     @Override
-    public void retirar(T valor) {
-        NoLista<T> p = this.primeiro;
-        NoLista<T> anterior = null;
-        while (p != null && p.getInfo() != valor) {
+    public void retirar(K chave) {
+        NoLista<K, T> p = this.primeiro;
+        NoLista<K, T> anterior = null;
+        while (p != null && p.getChave() != chave) {
             anterior = p;
             p = p.getProx();
         }
@@ -44,7 +43,7 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
 
     @Override
     public int buscar(T valor) {
-        NoLista<T> p = primeiro;
+        NoLista<K, T> p = primeiro;
         int pos = 0;
         while ( p != null) {
             if(p.getInfo() == valor) {
@@ -54,12 +53,23 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
             pos++;
         }
         return -1;
+    }
 
+    public T buscaPorChave(K chave) {
+        NoLista<K, T> p = primeiro;
+        while(p != null) {
+            if(p.getChave() == chave) {
+                return (T) p;
+            } else {
+                p = p.getProx();
+            }
+        }
+        return null;
     }
 
     @Override
     public String exibir() {
-        NoLista<T> p = primeiro;
+        NoLista<K, T> p = primeiro;
         String str = "[";
         while (p != null) {
             str += p.getInfo() + ", ";
@@ -72,9 +82,9 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
     public Lista<K, T> copiar() {
        ListaEncadeada<K, T> nova = new ListaEncadeada<>();
 
-        NoLista<T> p = this.primeiro;
+        NoLista<K, T> p = this.primeiro;
         while( p != null) {
-            nova.inserir(p.getInfo());
+            nova.inserir(p.getInfo(), p.getChave());
             p = p.getProx();
         }
         return nova;
@@ -92,9 +102,11 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
     }
 
     @Override
+
     public void concatenar(Lista<K, T> outra) {
         for (int i = 0; i < outra.getTamanho(); i++) {
-            this.inserir(outra.pegar(i));
+            
+         //   this.inserir(outra.pegar(i), this.primeiro.getChave() );
         }
     }
 
@@ -107,7 +119,7 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
 
         int metade = qtdeElementos/2;
         int pos = 0;
-        NoLista<T> p = new NoLista<T>();
+        NoLista<K, T> p = new NoLista<K, T>();
         p = this.primeiro;
         while (pos < metade) {
             p = p.getProx();
@@ -123,16 +135,15 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
     }
 
     @Override
-    public T pegar(int pos) {
+    public NoLista<K, T> pegar(int pos) { //retornar o objeto, não apenas sua info
         if(pos<0 || pos >= qtdeElementos) {
             throw new IndexOutOfBoundsException("Pos = " + pos);
         }
-        NoLista<T> p = this.primeiro;
+        NoLista<K, T> p = this.primeiro;
         for (int i = 0; i < pos; i++) {
            p = p.getProx(); 
         }
-        return (T)p.getInfo();
-
+        return p;
     }
 
     @Override
