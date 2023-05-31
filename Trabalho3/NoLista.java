@@ -1,3 +1,5 @@
+
+
 public class NoLista<K, T> {
     T info;
     K chave;
@@ -6,8 +8,15 @@ public class NoLista<K, T> {
     public T getInfo() {
         return info;
     }
+    public K getChave() {
+        return chave;
+    }
+    
     public void setInfo(T info) {
         this.info = info;
+    }
+    public void setChave(K chave) {
+        this.chave = chave;
     }
     public NoLista<K, T> getProx() {
         return prox;

@@ -1,13 +1,14 @@
-package Trabalho3;
 
 
 public interface Lista<K, T> {
 
-    void inserir(T valor);
+    void inserir(T valor, K chave);
 
-    void retirar(T valor);
+    void retirar(K chave);
 
     int buscar(T valor);
+
+    T buscaPorChave(K chave);
 
     String exibir();
 
@@ -19,7 +20,7 @@ public interface Lista<K, T> {
 
     Lista<K, T> dividir();
 
-    T pegar(int pos);
+    NoLista<K, T> pegar(int pos);
 
     int getTamanho();
 
