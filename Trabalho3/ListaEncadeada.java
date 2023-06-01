@@ -1,3 +1,4 @@
+//Adriano, Artur e Gabriel Santos
 public class ListaEncadeada<K, T> implements Lista<K, T> {
 
     NoLista<K, T> primeiro;
@@ -59,7 +60,7 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
         NoLista<K, T> p = primeiro;
         while(p != null) {
             if(p.getChave() == chave) {
-                return (T) p;
+                return p.getInfo();
             } else {
                 p = p.getProx();
             }
