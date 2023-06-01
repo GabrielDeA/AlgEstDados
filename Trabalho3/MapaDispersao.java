@@ -1,4 +1,4 @@
-
+//Adriano, Artur e Gabriel Santos
 public class MapaDispersao<K, T> {
     public Lista<K, T> tabela[];
     private int qtdeElementos;
